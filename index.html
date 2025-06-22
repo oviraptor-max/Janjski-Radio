@@ -1,0 +1,367 @@
+﻿
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Janjski Radio</title>
+<style>
+  body {
+    background: linear-gradient(120deg, #1a3c6e, #6ea8d1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff5b1;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    background-color: rgba(26, 60, 110, 0.85);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffea00;
+    text-shadow: 1px 1px 3px #0f244f;
+  }
+  nav {
+    background-color: rgba(20, 50, 90, 0.7);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    color: #fff5b1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #ffea00;
+  }
+  main {
+    flex: 1;
+    max-width: 900px;
+    margin: 30px auto 50px;
+    width: 90%;
+  }
+  section {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+  section h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 2px solid #ffea00;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: #ffea00;
+    text-shadow: 1px 1px 3px #0f244f;
+  }
+  .player {
+    background: #234c82;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    margin: 0 auto 30px;
+    color: #ffea00;
+  }
+  .player h3 {
+    margin: 0 0 15px 0;
+    font-weight: 700;
+    color: #ffea00;
+    text-shadow: 1px 1px 3px #0f244f;
+    text-align: center;
+  }
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  button.playpause {
+    background: #ffea00;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #1a3c6e;
+    font-weight: 700;
+    box-shadow: 0 2px 6px #0006;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+  }
+  button.playpause:hover {
+    background: #ffd500;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 4px;
+    background: #557bbf;
+    cursor: pointer;
+  }
+  input[type=range].progress {
+    flex-grow: 1;
+  }
+  input[type=range].progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffea00;
+    cursor: pointer;
+    box-shadow: 0 0 5px #ffea00cc;
+    margin-top: -5px;
+  }
+  input[type=range].progress::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffea00;
+    cursor: pointer;
+    box-shadow: 0 0 5px #ffea00cc;
+  }
+  input[type=range].volume {
+    width: 100px;
+  }
+  input[type=range].volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffea00;
+    cursor: pointer;
+    box-shadow: 0 0 4px #ffea00cc;
+    margin-top: -4px;
+  }
+  input[type=range].volume::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffea00;
+    cursor: pointer;
+    box-shadow: 0 0 4px #ffea00cc;
+  }
+  .time {
+    font-size: 0.8rem;
+    width: 45px;
+    text-align: center;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  #kontakt ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #kontakt ul li {
+    margin-bottom: 8px;
+  }
+  #kontakt a {
+    color: #fff5b1;
+    text-decoration: none;
+  }
+  #kontakt a:hover {
+    text-decoration: underline;
+    color: #ffea00;
+  }
+  footer {
+    background-color: rgba(20, 50, 90, 0.8);
+    text-align: center;
+    padding: 15px 10px;
+    color: #ffea00cc;
+    font-size: 0.9rem;
+    box-shadow: 0 -4px 6px rgba(0,0,0,0.5);
+    user-select: none;
+  }
+  @media (max-width: 640px) {
+    .player {
+      max-width: 100%;
+    }
+    nav {
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .controls {
+      gap: 8px;
+    }
+    input[type=range].volume {
+      width: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Janjski Radio</h1>
+</header>
+
+<nav>
+  <a href="#pocetna">Početna</a>
+  <a href="#o-nama">O nama</a>
+  <a href="#programi">Programi</a>
+  <a href="#kontakt">Kontakt</a>
+</nav>
+
+<main>
+  <section id="pocetna">
+    <h2>Dobrodošli na Janjski Radio</h2>
+    <p>Vaša omiljena radio stanica sa raznovrsnim muzičkim programima za svaki ukus. Uživajte u najboljoj zabavnoj, narodnoj, krajiškoj i duhovnoj muzici.</p>
+  </section>
+
+  <section id="o-nama">
+    <h2>O nama</h2>
+    <p>Janjski Radio je lokalna radio stanica sa ciljem da slušaocima donese najkvalitetniji muzički sadržaj i informativne emisije. Naši programi su pažljivo kreirani da zadovolje različite muzičke ukuse i pruže najbolji audio doživljaj.</p>
+  </section>
+
+  <section id="programi">
+    <h2>Programi</h2>
+
+    <div class="player">
+      <h3>Prvi program – Zabavna muzika</h3>
+      <audio id="audio1" src="http://109.169.15.16:6657/;stream.mp3"></audio>
+      <div class="controls">
+        <button class="playpause" id="playpause1" aria-label="Play">&#9658;</button>
+        <input type="range" id="progress1" class="progress" min="0" max="100" value="0" step="1">
+        <div class="time" id="time1">0:00</div>
+        <input type="range" id="volume1" class="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+
+    <div class="player">
+      <h3>Drugi program – Narodna muzika</h3>
+      <audio id="audio2" src="http://78.129.132.7:22864/;stream.mp3"></audio>
+      <div class="controls">
+        <button class="playpause" id="playpause2" aria-label="Play">&#9658;</button>
+        <input type="range" id="progress2" class="progress" min="0" max="100" value="0" step="1">
+        <div class="time" id="time2">0:00</div>
+        <input type="range" id="volume2" class="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+
+    <div class="player">
+      <h3>Treći program – Krajiška muzika</h3>
+      <audio id="audio3" src="http://82.145.41.50:21051/;stream.mp3"></audio>
+      <div class="controls">
+        <button class="playpause" id="playpause3" aria-label="Play">&#9658;</button>
+        <input type="range" id="progress3" class="progress" min="0" max="100" value="0" step="1">
+        <div class="time" id="time3">0:00</div>
+        <input type="range" id="volume3" class="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+
+    <div class="player">
+      <h3>Četvrti program – Duhovna muzika</h3>
+      <audio id="audio4" src="http://95.154.195.3:32712/;stream.mp3"></audio>
+      <div class="controls">
+        <button class="playpause" id="playpause4" aria-label="Play">&#9658;</button>
+        <input type="range" id="progress4" class="progress" min="0" max="100" value="0" step="1">
+        <div class="time" id="time4">0:00</div>
+        <input type="range" id="volume4" class="volume" min="0" max="1" step="0.01" value="1" aria-label="Volume">
+      </div>
+    </div>
+
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt</h2>
+    <p>Za sve informacije i saradnju kontaktirajte nas putem:</p>
+    <ul>
+      <li>Email: <a href="mailto:info@janjskiradio.ba">info@janjskiradio.ba</a></li>
+      <li>Telefon: <a href="tel:+387644466612">+387 644466612</a></li>
+      <li>Adresa: Ulica Janj BB, Šipovo, Bosna i Hercegovina</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Janjski Radio. Sva prava zadržana.
+</footer>
+
+<script>
+  function setupPlayer(audioId, playpauseId, progressId, timeId, volumeId) {
+    const audio = document.getElementById(audioId);
+    const playpause = document.getElementById(playpauseId);
+    const progress = document.getElementById(progressId);
+    const time = document.getElementById(timeId);
+    const volume = document.getElementById(volumeId);
+
+    playpause.addEventListener('click', () => {
+      if (audio.paused) {
+        pauseAllExcept(audio);
+        audio.play();
+        playpause.textContent = '❚❚';
+      } else {
+        audio.pause();
+        playpause.textContent = '▶';
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progress.value = progressPercent;
+        time.textContent = formatTime(audio.currentTime);
+      }
+    });
+
+    progress.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (progress.value / 100) * audio.duration;
+      }
+    });
+
+    volume.addEventListener('input', () => {
+      audio.volume = volume.value;
+    });
+
+    audio.addEventListener('ended', () => {
+      playpause.textContent = '▶';
+      progress.value = 0;
+      time.textContent = '0:00';
+    });
+
+    function pauseAllExcept(currentAudio) {
+      document.querySelectorAll('audio').forEach(a => {
+        if (a !== currentAudio) {
+          a.pause();
+          const btn = document.getElementById('playpause' + a.id.slice(-1));
+          if (btn) btn.textContent = '▶';
+        }
+      });
+    }
+  }
+
+  function formatTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${min}:${sec}`;
+  }
+
+  setupPlayer('audio1', 'playpause1', 'progress1', 'time1', 'volume1');
+  setupPlayer('audio2', 'playpause2', 'progress2', 'time2', 'volume2');
+  setupPlayer('audio3', 'playpause3', 'progress3', 'time3', 'volume3');
+  setupPlayer('audio4', 'playpause4', 'progress4', 'time4', 'volume4');
+</script>
+
+</body>
+</html>
